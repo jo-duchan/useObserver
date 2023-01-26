@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useRef } from "react";
 import { CustomObserverType } from "custom-hook/custom-hook-type";
 
-export function useObserver() {
-  const dom = useRef<CustomObserverType>(null);
+interface Isintersecting {
+  isIntersecting: boolean;
+}
 
-  const handleScroll = useCallback(([entry]: any[]) => {
+export function useObserver() {
+  const dom = useRef<any>(null);
+
+  const handleScroll = useCallback(<T extends Isintersecting>([entry]: T[]) => {
     const { current } = dom;
 
     if (entry.isIntersecting) {
