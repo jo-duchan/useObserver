@@ -10,7 +10,11 @@ interface Props {
 
 function Animation({ children }: Props) {
   const scrollObserver = useObserver();
-  return <div {...scrollObserver}>{children}</div>;
+  return (
+    <div style={{ position: "relative" }} {...scrollObserver}>
+      {children}
+    </div>
+  );
 }
 
 export default React.memo(Animation);

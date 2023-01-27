@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useRef } from "react";
-import { CustomObserverType } from "custom-hook/custom-hook-type";
 
-interface Isintersecting {
+// Type
+export interface IntersectType {
   isIntersecting: boolean;
 }
 
 export function useObserver() {
-  const dom = useRef<CustomObserverType>(null);
+  const dom = useRef<HTMLDivElement>(null);
 
-  const handleScroll = useCallback(<T extends Isintersecting>([entry]: T[]) => {
+  const handleScroll = useCallback(<T extends IntersectType>([entry]: T[]) => {
     const { current } = dom;
 
     if (entry.isIntersecting) {
-      console.log("Active");
       current?.classList.add("active");
     } else {
       current?.classList.remove("active");
