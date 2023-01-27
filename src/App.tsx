@@ -1,11 +1,9 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 // Component
-import Observer from "custom-hook/Observer";
+import BoxOuter from "BoxOuter";
 
 function App() {
-  const [option, setOption] = useState<boolean>(false);
   return (
     <Container>
       <Title>React Custom Observer Demo</Title>
@@ -16,15 +14,8 @@ function App() {
         scrambled it to make a type specimen{" "}
       </Description>
       <Body>
-        {[...Array(6)].map((x, i) => (
-          <BoxOuter key={i}>
-            <Label>
-              {`Threshold: ${(i * 0.2).toFixed(1)}, iteration: ${option}`}
-            </Label>
-            <Observer threshold={i * 0.2} iteration={option}>
-              <Box onClick={() => setOption(!option)} />
-            </Observer>
-          </BoxOuter>
+        {[...Array(6)].map((x, i: number) => (
+          <BoxOuter index={i} />
         ))}
       </Body>
     </Container>
@@ -54,29 +45,4 @@ const Description = styled.p`
 const Body = styled.div`
   margin-top: 80vh;
   margin-bottom: 10vh;
-`;
-
-const Label = styled.span`
-  display: inline-block;
-  margin-bottom: 50px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #101010;
-`;
-
-const BoxOuter = styled.div`
-  margin-top: 50vh;
-`;
-
-const Box = styled.div`
-  width: 100px;
-  height: 100px;
-  border-radius: 4px;
-  background: #dfdfdf;
-  transition: 500ms ease-in-out 200ms;
-  transition-property: background, transform;
-  .active & {
-    background: #0037ff;
-    transform: translate3d(200%, 0, 0);
-  }
 `;
