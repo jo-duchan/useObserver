@@ -5,7 +5,7 @@ export interface IntersectType {
   isIntersecting: boolean;
 }
 
-export function useObserver() {
+export function useObserver(threshold: number) {
   const dom = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(<T extends IntersectType>([entry]: T[]) => {
@@ -23,15 +23,16 @@ export function useObserver() {
     const { current } = dom;
 
     if (current) {
-      // threshold 노출 정도
-      observer = new IntersectionObserver(handleScroll, { threshold: 1 });
+      observer = new IntersectionObserver(handleScroll, {
+        threshold: threshold,
+      });
       observer.observe(current);
 
       return () => {
         observer && observer.disconnect();
       };
     }
-  }, [handleScroll]);
+  }, [handleScroll, threshold]);
 
   return {
     ref: dom,

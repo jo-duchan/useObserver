@@ -1,25 +1,26 @@
-import React from "react";
 import styled from "styled-components";
 
 // Component
-import Animation from "custom-hook/Animation";
+import Observer from "custom-hook/Observer";
 
 function App() {
   return (
     <Container>
-      <Title>Custom Hook</Title>
+      <Title>React Custom Observer Demo</Title>
       <Body>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
         scrambled it to make a type specimen{" "}
-        <Animation>
-          <Box01 />
-        </Animation>
-        <Animation>
-          <Box02 />
-        </Animation>
       </Body>
+      {[...Array(6)].map((x, i) => (
+        <BoxOuter key={i}>
+          {(i * 0.2).toFixed(1)}
+          <Observer threshold={i * 0.2}>
+            <Box />
+          </Observer>
+        </BoxOuter>
+      ))}
     </Container>
   );
 }
@@ -28,11 +29,13 @@ export default App;
 
 const Container = styled.div`
   width: 100%;
+  padding: 5vw;
   height: 200vh;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h1`
-  margin-top: 50vh;
+  /* margin-top: 50vh; */
 `;
 
 const Body = styled.div`
@@ -40,28 +43,19 @@ const Body = styled.div`
   line-height: 1.5em;
 `;
 
-const Box01 = styled.div`
+const BoxOuter = styled.div`
   margin-top: 50vh;
-  width: 100px;
-  height: 100px;
-  background: darkblue;
-  transition: 500ms ease-in-out 200ms;
-  transition-property: background, transform;
-  .active & {
-    background: salmon;
-    transform: rotate(270deg);
-  }
 `;
 
-const Box02 = styled.div`
-  margin-top: 50vh;
+const Box = styled.div`
   width: 100px;
   height: 100px;
-  background: salmon;
+  border-radius: 4px;
+  background: #35dea9;
   transition: 500ms ease-in-out 200ms;
   transition-property: background, transform;
   .active & {
-    background: darkblue;
-    transform: rotate(-270deg);
+    background: #0037ff;
+    transform: translate3d(200%, 0, 0);
   }
 `;
