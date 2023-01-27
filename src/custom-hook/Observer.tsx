@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 // Custom Hook
-import { useObserver } from "custom-hook/useObserver";
+import { useObserver } from "./useObserver";
 
 // Type
 

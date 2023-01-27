@@ -68,7 +68,7 @@ const Box = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 4px;
-  background: #35dea9;
+  background: #dfdfdf;
   transition: 500ms ease-in-out 200ms;
   transition-property: background, transform;
   .active & {
