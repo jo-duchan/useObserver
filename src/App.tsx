@@ -1,13 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-// Custom Hook
-// import { useObserver } from "custom-hook/useObserver";
+// Component
 import Animation from "custom-hook/Animation";
 
 function App() {
-  // const scrollObserve01 = useObserver();
-  // const scrollObserve02 = useObserver();
   return (
     <Container>
       <Title>Custom Hook</Title>
