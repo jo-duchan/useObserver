@@ -15,10 +15,11 @@ interface Props {
    * 값은 0 부터 1 사이에 값을 넣으세요.
    */
   threshold: number;
+  iteration: boolean;
 }
 
-function Observer({ children, threshold }: Props) {
-  const scrollObserver = useObserver(Math.min(threshold, 1));
+function Observer({ children, threshold, iteration }: Props) {
+  const scrollObserver = useObserver(Math.min(threshold, 1), iteration);
   return (
     <div style={{ position: "relative" }} {...scrollObserver}>
       {children}
@@ -30,4 +31,5 @@ export default React.memo(Observer);
 
 Observer.defaultProps = {
   threshold: 1,
+  iteration: true,
 };

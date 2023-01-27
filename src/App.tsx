@@ -1,9 +1,11 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 // Component
 import Observer from "custom-hook/Observer";
 
 function App() {
+  const [option, setOption] = useState<boolean>(false);
   return (
     <Container>
       <Title>React Custom Observer Demo</Title>
@@ -16,9 +18,11 @@ function App() {
       <Body>
         {[...Array(6)].map((x, i) => (
           <BoxOuter key={i}>
-            <Label>Threshold {(i * 0.2).toFixed(1)}</Label>
-            <Observer threshold={i * 0.2}>
-              <Box />
+            <Label>
+              {`Threshold: ${(i * 0.2).toFixed(1)}, iteration: ${option}`}
+            </Label>
+            <Observer threshold={i * 0.2} iteration={option}>
+              <Box onClick={() => setOption(!option)} />
             </Observer>
           </BoxOuter>
         ))}

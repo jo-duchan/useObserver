@@ -1,22 +1,29 @@
 import { useCallback, useEffect, useRef } from "react";
 
-// Type
-export interface IntersectType {
-  isIntersecting: boolean;
-}
-
-export function useObserver(threshold: number) {
+export function useObserver(threshold: number, iteration: boolean) {
   const dom = useRef<HTMLDivElement>(null);
 
-  const handleScroll = useCallback(<T extends IntersectType>([entry]: T[]) => {
-    const { current } = dom;
+  const Iteration = useCallback(
+    (observer: IntersectionObserver, current: HTMLDivElement | null) => {
+      if (!current) return;
+      if (!iteration) observer.unobserve(current);
+    },
+    [iteration]
+  );
 
-    if (entry.isIntersecting) {
-      current?.classList.add("active");
-    } else {
-      current?.classList.remove("active");
-    }
-  }, []);
+  const handleScroll = useCallback(
+    ([entry]: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      const { current } = dom;
+
+      if (entry.isIntersecting) {
+        current?.classList.add("active");
+        Iteration(observer, current);
+      } else {
+        current?.classList.remove("active");
+      }
+    },
+    [Iteration]
+  );
 
   useEffect(() => {
     let observer: IntersectionObserver;
