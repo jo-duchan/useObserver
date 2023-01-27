@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 // Custom Hook
-import { useObserver } from "custom-hook/useObserver";
+// import { useObserver } from "custom-hook/useObserver";
+import Animation from "custom-hook/Animation";
 
 function App() {
-  const scrollObserve01 = useObserver();
-  const scrollObserve02 = useObserver();
+  // const scrollObserve01 = useObserver();
+  // const scrollObserve02 = useObserver();
   return (
     <Container>
       <Title>Custom Hook</Title>
@@ -15,8 +16,12 @@ function App() {
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
         scrambled it to make a type specimen{" "}
-        <Trigger01 {...scrollObserve01}></Trigger01>
-        <Trigger02 {...scrollObserve02}></Trigger02>
+        <Animation>
+          <Box01 />
+        </Animation>
+        <Animation>
+          <Box02 />
+        </Animation>
       </Body>
     </Container>
   );
@@ -38,16 +43,28 @@ const Body = styled.div`
   line-height: 1.5em;
 `;
 
-const Trigger01 = styled.div`
+const Box01 = styled.div`
   margin-top: 50vh;
   width: 100px;
   height: 100px;
-  background: greenyellow;
+  background: darkblue;
+  transition: 500ms ease-in-out 200ms;
+  transition-property: background, transform;
+  .active & {
+    background: salmon;
+    transform: rotate(270deg);
+  }
 `;
 
-const Trigger02 = styled.div`
+const Box02 = styled.div`
   margin-top: 50vh;
   width: 100px;
   height: 100px;
-  background: pink;
+  background: salmon;
+  transition: 500ms ease-in-out 200ms;
+  transition-property: background, transform;
+  .active & {
+    background: darkblue;
+    transform: rotate(-270deg);
+  }
 `;

@@ -6,7 +6,7 @@ interface Isintersecting {
 }
 
 export function useObserver() {
-  const dom = useRef<any>(null);
+  const dom = useRef<CustomObserverType>(null);
 
   const handleScroll = useCallback(<T extends Isintersecting>([entry]: T[]) => {
     const { current } = dom;
