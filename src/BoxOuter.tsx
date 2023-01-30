@@ -19,7 +19,7 @@ function BoxOuter({ index }: Props) {
       <Observer
         threshold={index * 0.2}
         iteration={option}
-        className="active33"
+        className="active"
         // onIntersect={(val) => console.log(val)}
       >
         <Box onClick={() => setOption(!option)} />
