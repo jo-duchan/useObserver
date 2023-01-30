@@ -15,7 +15,7 @@ function App() {
       </Description>
       <Body>
         {[...Array(6)].map((x, i: number) => (
-          <BoxOuter index={i} />
+          <BoxOuter key={i} index={i} />
         ))}
       </Body>
     </Container>

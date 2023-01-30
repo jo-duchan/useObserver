@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef } from "react";
 
-export function useObserver(threshold: number, iteration: boolean) {
+export function useObserver(
+  threshold: number,
+  iteration: boolean,
+  className: string | undefined,
+  onIntersect: ((val: boolean) => void) | undefined
+) {
   const dom = useRef<HTMLDivElement>(null);
 
   const Iteration = useCallback(
@@ -16,13 +21,15 @@ export function useObserver(threshold: number, iteration: boolean) {
       const { current } = dom;
 
       if (entry.isIntersecting) {
-        current?.classList.add("active");
+        className && current?.classList.add(className);
+        onIntersect && onIntersect(true);
         Iteration(observer, current);
       } else {
-        current?.classList.remove("active");
+        onIntersect && onIntersect(false);
+        className && current?.classList.remove(className);
       }
     },
-    [Iteration]
+    [Iteration, className, onIntersect]
   );
 
   useEffect(() => {

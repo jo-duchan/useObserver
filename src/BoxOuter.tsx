@@ -10,12 +10,18 @@ interface Props {
 
 function BoxOuter({ index }: Props) {
   const [option, setOption] = useState<boolean>(true);
+
   return (
     <Container>
       <Label>
         {`Threshold: ${(index * 0.2).toFixed(1)}, iteration: ${option}`}
       </Label>
-      <Observer threshold={index * 0.2} iteration={option}>
+      <Observer
+        threshold={index * 0.2}
+        iteration={option}
+        className="active33"
+        // onIntersect={(val) => console.log(val)}
+      >
         <Box onClick={() => setOption(!option)} />
       </Observer>
     </Container>

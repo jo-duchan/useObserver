@@ -16,10 +16,23 @@ interface Props {
    */
   threshold: number;
   iteration: boolean;
+  className: string;
+  onIntersect: (val: boolean) => void;
 }
 
-function Observer({ children, threshold, iteration }: Props) {
-  const scrollObserver = useObserver(Math.min(threshold, 1), iteration);
+function Observer({
+  children,
+  threshold,
+  iteration,
+  className,
+  onIntersect,
+}: Props) {
+  const scrollObserver = useObserver(
+    Math.min(threshold, 1),
+    iteration,
+    className,
+    onIntersect
+  );
   return (
     <div style={{ position: "relative" }} {...scrollObserver}>
       {children}
@@ -32,4 +45,6 @@ export default React.memo(Observer);
 Observer.defaultProps = {
   threshold: 1,
   iteration: true,
+  className: undefined,
+  onIntersect: undefined,
 };
