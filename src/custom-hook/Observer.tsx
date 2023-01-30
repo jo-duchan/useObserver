@@ -14,7 +14,7 @@ interface Props {
    * 만일 50%만큼 요소가 보였을 때 실행하고 싶으면 값을 0.5 로 설정하면 됩니다.
    * 값은 0 부터 1 사이에 값을 넣으세요.
    */
-  threshold: number;
+  threshold: number | number[];
   iteration: boolean;
   className: string;
   onIntersect: (val: boolean) => void;
@@ -28,7 +28,7 @@ function Observer({
   onIntersect,
 }: Props) {
   const scrollObserver = useObserver(
-    Math.min(threshold, 1),
+    threshold,
     iteration,
     className,
     onIntersect

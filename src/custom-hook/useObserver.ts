@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
 export function useObserver(
-  threshold: number,
+  threshold: number | number[],
   iteration: boolean,
   className: string | undefined,
   onIntersect: ((val: boolean) => void) | undefined
