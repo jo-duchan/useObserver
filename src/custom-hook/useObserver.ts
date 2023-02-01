@@ -68,6 +68,7 @@ export function useObserver(
       observer && observer.disconnect();
       window.removeEventListener("resize", onResize);
     };
+    // handleScroll이 Maximum update depth exceeded를 일으킨다.
   }, [threshold]);
 
   return {
