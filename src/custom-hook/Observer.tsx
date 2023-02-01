@@ -18,6 +18,7 @@ interface Props {
   iteration: boolean;
   className: string;
   onIntersect: (val: boolean) => void;
+  getTarget: (dom: HTMLDivElement) => void;
 }
 
 function Observer({
@@ -26,12 +27,14 @@ function Observer({
   iteration,
   className,
   onIntersect,
+  getTarget,
 }: Props) {
   const scrollObserver = useObserver(
     threshold,
     iteration,
     className,
-    onIntersect
+    onIntersect,
+    getTarget
   );
   return (
     <div style={{ position: "relative" }} {...scrollObserver}>
@@ -47,4 +50,5 @@ Observer.defaultProps = {
   iteration: true,
   className: undefined,
   onIntersect: undefined,
+  getTarget: undefined,
 };

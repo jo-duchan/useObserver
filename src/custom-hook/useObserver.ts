@@ -4,9 +4,17 @@ export function useObserver(
   threshold: number | number[],
   iteration: boolean,
   className: string | undefined,
-  onIntersect: ((val: boolean) => void) | undefined
+  onIntersect: ((val: boolean) => void) | undefined,
+  getTarget: ((dom: HTMLDivElement) => void) | undefined
 ) {
   const dom = useRef<HTMLDivElement>(null);
+
+  const setElement = useCallback(
+    (dom: HTMLDivElement) => {
+      getTarget && getTarget(dom);
+    },
+    [getTarget]
+  );
 
   const Iteration = useCallback(
     (observer: IntersectionObserver, current: HTMLDivElement | null) => {
@@ -36,17 +44,19 @@ export function useObserver(
     let observer: IntersectionObserver;
     const { current } = dom;
 
-    if (current) {
-      observer = new IntersectionObserver(handleScroll, {
-        threshold: threshold,
-      });
-      observer.observe(current);
+    if (!current) return;
 
-      return () => {
-        observer && observer.disconnect();
-      };
-    }
-  }, [handleScroll, threshold]);
+    observer = new IntersectionObserver(handleScroll, {
+      threshold: threshold,
+    });
+
+    observer.observe(current);
+    setElement(current);
+
+    return () => {
+      observer && observer.disconnect();
+    };
+  }, [threshold]);
 
   return {
     ref: dom,

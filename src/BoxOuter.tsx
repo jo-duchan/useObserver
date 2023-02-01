@@ -21,6 +21,7 @@ function BoxOuter({ index }: Props) {
         iteration={option}
         className="active"
         // onIntersect={(val) => console.log(val)}
+        getTarget={(dom) => console.log(dom)}
       >
         <Box onClick={() => setOption(!option)} />
       </Observer>
