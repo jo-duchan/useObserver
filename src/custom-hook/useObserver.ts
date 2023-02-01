@@ -43,8 +43,10 @@ export function useObserver(
   useEffect(() => {
     let observer: IntersectionObserver;
     const { current } = dom;
-
     if (!current) return;
+
+    const delay = 300;
+    let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
     observer = new IntersectionObserver(handleScroll, {
       threshold: threshold,
@@ -53,8 +55,18 @@ export function useObserver(
     observer.observe(current);
     setElement(current);
 
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        setElement(current);
+      }, delay);
+    };
+
+    window.addEventListener("resize", onResize);
+
     return () => {
       observer && observer.disconnect();
+      window.removeEventListener("resize", onResize);
     };
   }, [threshold]);
 
